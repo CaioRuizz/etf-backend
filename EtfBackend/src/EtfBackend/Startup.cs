@@ -34,6 +34,13 @@ public class Startup
 
         app.UseAuthorization();
 
+        app.UseCors(c =>
+        {
+            c.AllowAnyOrigin();
+            c.AllowAnyHeader();
+            c.AllowAnyMethod();
+        });
+
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
