@@ -17,6 +17,15 @@ public class EtfController : ControllerBase
         _context = new(dynamoDb);
         
     }
+
+    private async Task<List<Etf>?> ListarEtfs()
+    {
+        List<ScanCondition> conditions = new();
+
+        var result = await _context.ScanAsync<Etf>(conditions).GetRemainingAsync();
+
+        return result;
+    }
     
     [HttpPost]
     public async Task<IActionResult> AdicionarIndice([FromBody] Etf etf)
@@ -29,15 +38,28 @@ public class EtfController : ControllerBase
     [HttpGet("tickers")]
     public async Task<IActionResult> ListarTickers()
     {
-        List<ScanCondition> conditions = new();
-
-        var result = await _context.ScanAsync<Etf>(conditions).GetRemainingAsync();
+        var result = await ListarEtfs();
 
         if (result is null)
         {
             return NotFound();
         }
 
+        var response = result.Select(r => r.Ticker).ToList();
+        
+        return Ok(response);
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> GetEtfs()
+    {
+        var result = await ListarEtfs();
+
+        if (result is null)
+        {
+            return NotFound();
+        }
+        
         return Ok(result);
     }
 
