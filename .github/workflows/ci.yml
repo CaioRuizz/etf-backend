@@ -18,5 +18,5 @@ jobs:
       - name: deploy
         run: |
           dotnet tool install -g Amazon.Lambda.Tools
-          cd "App/src/App"
+          cd "EtfBackend/src/EtfBackend"
           dotnet lambda deploy-serverless -sn etf-backend -sb caioruizserverless
