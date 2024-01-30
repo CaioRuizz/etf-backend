@@ -7,6 +7,8 @@ public class Etf
 {
     [DynamoDBHashKey]
     public string Ticker { get; set; }
-    public string Tipo { get; set; }
+    [DynamoDBRangeKey]
+    public string Type { get; set; }
+    public string UpdatedAt { get; set; }
     public List<Holding> Holdings { get; set; }
 }
