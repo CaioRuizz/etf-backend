@@ -45,7 +45,11 @@ public class EtfController : ControllerBase
             return NotFound();
         }
 
-        var response = result.Select(r => r.Ticker).ToList();
+        var response = result.Select(r => new
+        {
+            r.Ticker,
+            r.Type,
+        }).ToList();
         
         return Ok(response);
     }
