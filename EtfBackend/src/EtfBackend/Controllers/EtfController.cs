@@ -15,7 +15,6 @@ public class EtfController : ControllerBase
     {
         _logger = logger;
         _context = new(dynamoDb);
-        
     }
 
     private async Task<List<Etf>?> ListarEtfs()
